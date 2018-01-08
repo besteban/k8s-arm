@@ -2,8 +2,7 @@ FROM kodbasen/java-jdk-arm:jdk-8u111-b14
 
 RUN apt-get update \
   && apt-get install -y bash git curl zip build-essential \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+  && apt-get clean 
 
 ENV JENKINS_HOME /var/jenkins_home
 ENV JENKINS_SLAVE_AGENT_PORT 50000
@@ -41,8 +40,7 @@ ENV JENKINS_SHA ${JENKINS_SHA:-e97670636394092af40cc626f8e07b092105c07b}
 
 # could use ADD but this one does not check Last-Modified header
 # see https://github.com/docker/docker/issues/8331
-RUN curl -fsSL http://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.war -o /usr/share/jenkins/jenkins.war \
-  && echo "$JENKINS_SHA  /usr/share/jenkins/jenkins.war" | sha1sum -c -
+RUN curl -fsSL http://updates.jenkins-ci.org/download/war/2.100/jenkins.war -o /usr/share/jenkins/jenkins.war 
 
 ENV JENKINS_UC https://updates.jenkins.io
 RUN chown -R ${user} "$JENKINS_HOME" /usr/share/jenkins/ref
