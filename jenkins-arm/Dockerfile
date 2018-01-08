@@ -1,6 +1,6 @@
 FROM kodbasen/java-jdk-arm:jdk-8u111-b14
 
-RUN apt-get update \
+RUN sudo apt-get update \
   && apt-get install -y bash git curl zip build-essential \
   && apt-get clean 
 
